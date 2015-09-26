@@ -1,0 +1,100 @@
+//@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+//@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+
+body.popup {
+	width: 420px;
+	margin: 10px 0;
+	font-family: Roboto, sans-serif;
+}
+
+#header {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+#table-rates {
+	thead {
+		color: #888;
+	}
+
+	.gap-name,
+	.rate-name {
+		font-size: 13px;
+		text-align: right;
+		text-transform: uppercase;
+		font-weight: bold;
+		color: #676767;
+		width: 40%;
+	}
+
+	.rate-buy,
+	.rate-sell,
+	.gap-value {
+		position: relative;
+		text-align: center;
+		font-family: Inconsolata, monospace;
+		font-weight: bold;
+		font-size: 18px;
+		color: #444;
+	}
+
+	.rate-icon {
+		float: left;
+		opacity: 0.8;
+	}
+
+	.rate-blue .rate-icon {
+		color: blue;
+	}
+
+	.rate-oficial,
+	.rate-ahorro,
+	.rate-tarjeta {
+		.rate-icon {
+			color: green;
+		}
+	}
+
+	.rate-buy,
+	.rate-sell {
+		width: 30%;
+	}
+
+	.gap-name {
+		color: #A73D3D;
+		opacity: 0.9;
+	}
+
+	.gap-value {
+		font-size: 16px;
+	}
+
+	.variation-up,
+	.variation-down {
+		font-size: 20px;
+		position: absolute;
+		right: 6px;
+		top: 10px;
+		opacity: 0.8;
+	}
+
+	.variation-up {
+		.text-danger;
+	}
+
+	.variation-down {
+		.text-success;
+	}
+
+	margin-bottom: 10px;
+}
+
+#footer {
+	color: #555;
+	font-size: 12px;
+}
+
+#source {
+	margin-top: 4px;
+	color: #888;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="popup" ng-csp>
+<head>
+<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+	<link rel="stylesheet" href="/css/extension.css">
+</head>
+<body class="popup" ng-controller="PopupCtrl as vm">
+	<div class="container-fluid">
+		<h4 id="header"><img src="/images/icon-24.png" alt=""> Dólar Blue al instante</h4>
+
+		<span class="text-muted" ng-if="!vm.rates.length"><i class="fa fa-cog fa-spin"></i> Esperando datos...</span>
+
+		<div class="ng-cloak" ng-if="vm.rates.length">
+			<table id="table-rates" class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th></th>
+						<th class="text-center">Venta</th>
+						<th class="text-center">Compra</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="rate in vm.rates" class="rate-{{rate.name.toLowerCase()}}">
+						<td class="rate-name">
+							<i class="fa fa-{{rate.icon}} rate-icon"></i>
+							{{rate.name}}
+						</td>
+						<td class="rate-sell">
+							{{rate.sell | number:2}}
+							<i class="variation-{{rate.variation === 1 ? 'up' : 'down'}} fa fa-caret-{{rate.variation === 1 ? 'up' : 'down'}}" ng-if="rate.variation"></i>
+						</td>
+						<td class="rate-buy">
+							{{rate.buy ? (rate.buy | number:2) : '-'}}
+						</td>
+					</tr>
+					<tr>
+						<td class="gap-name">Brecha</td>
+						<td class="gap-value">-</td>
+						<td class="gap-value">{{vm.gap | number:0}}%</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div id="footer">
+				<div><strong>Última actualización:</strong> {{vm.lastUpdated | amDateFormat:'DD/MM/YY &nbsp;HH:mm'}}</div>
+				<div id="source">Fuente: La Nación/Bluelytics API</div>
+			</div>
+		</div>
+
+	</div>
+	<script src="/js/popup.js"></script>
+</body>
+</html>
