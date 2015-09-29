@@ -15,6 +15,7 @@ module.exports = {
       'bower_components/angular-moment/angular-moment.js',
       'src/js/popup/app.js',
       'src/js/popup/**/*.js',
+      { path: '!src/js/popup/ga.js', env: 'dist' },
     ],
     background: [
       'src/js/background/background.js'

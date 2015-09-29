@@ -13,6 +13,9 @@ var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var ngAnnotate = require('gulp-ng-annotate');
+var debug = require('gulp-debug');
+var jshint = require('gulp-jshint');
+var gulpFilter = require('gulp-filter');
 
 gulp.task('watch', ['build'], function () {
   gulp.watch('src/**/*.js', ['buildJs']);
@@ -38,7 +41,13 @@ gulp.task('buildStyles', function(cb) {
 });
 
 gulp.task('buildJsPopup', function() {
-  return gulp.src(config.scripts.popup)
+  var filter = gulpFilter(['src/**/*.js', '!src/js/popup/ga.js'], {restore: true});
+
+  return gulp.src(filterFiles(config.scripts.popup), {base: '.'})
+    .pipe(filter)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+    .pipe(filter.restore)
     .pipe(concat('popup.js'))
     .pipe(ngAnnotate())
     .pipe(gulpif(isDist(), uglify()))
@@ -47,6 +56,8 @@ gulp.task('buildJsPopup', function() {
 
 gulp.task('buildJsBackground', function() {
   return gulp.src(config.scripts.background)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(concat('background.js'))
     .pipe(browserify({
       insertGlobals : true,
@@ -58,7 +69,7 @@ gulp.task('buildJsBackground', function() {
 
 gulp.task('buildOther', function(cb) {
   return gulp.src(config.other, {base: 'src'})
-      .pipe(gulp.dest(buildPath()));
+    .pipe(gulp.dest(buildPath()));
 });
 
 function buildPath(path) {
@@ -71,4 +82,28 @@ function isDist() {
 
 function isDev() {
   return !isDist();
+}
+
+function filterFiles(input) {
+  var output = [];
+  input.forEach(function(item) {
+    var path;
+
+    if (typeof item === 'string') {
+      output.push(item);
+      return;
+    }
+
+    if (item.env === 'dist' && !isDev()) {
+      output.push(item.path);
+      return;
+    }
+
+    if (item.env === 'dev' && isDev()) {
+      output.push(item.path);
+      return;
+    }
+  });
+
+  return output;
 }

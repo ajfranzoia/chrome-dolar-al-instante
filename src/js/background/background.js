@@ -1,4 +1,4 @@
-(function(){
+(function () {
   'use strict';
 
   var dolarblue = require('../../../lib/dolar-blue'),
@@ -27,8 +27,8 @@
 
       // Check variation against last rates if found
       if (lastRates) {
-        rates.blue.variation = rates.blue.sell > lastRates.blue.sell ? 1 : (rates.blue.sell === lastRates.blue.sell ? 0 : -1)
-        rates.oficial.variation = rates.oficial.sell > lastRates.oficial.sell ? 1 : (rates.oficial.sell === lastRates.oficial.sell ? 0 : -1)
+        rates.blue.variation = rates.blue.sell > lastRates.blue.sell ? 1 : (rates.blue.sell === lastRates.blue.sell ? 0 : -1);
+        rates.oficial.variation = rates.oficial.sell > lastRates.oficial.sell ? 1 : (rates.oficial.sell === lastRates.oficial.sell ? 0 : -1);
       } else {
         rates.blue.variation = null;
         rates.oficial.variation = null;
@@ -55,7 +55,7 @@
    * @return {undefined}
    */
   function updateIcon(value, date) {
-    var title, value;
+    var title;
 
     if (typeof value !== 'undefined') {
       title = 'Última actualización: ' + moment(date).format('DD/MM/YY HH:ss');

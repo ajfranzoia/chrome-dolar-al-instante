@@ -1,11 +1,21 @@
 {
+  "manifest_version": 2,
   "name": "Dólar Blue al instante",
+  "short_name": "DolarBlue",
   "version": "1.0.0",
-  "description": "Muestra el valor actual del dólar Blue en el navegador y brinda información adicional sobre las demás cotizaciones.",
+  "description": "Muestra el valor actualizado del Dólar Blue en el navegador y brinda información adicional sobre las demás cotizaciones.",
+  "author": "Augusto Franzoia <ajfranzoia@gmail.com>",
   "icons": {
     "24": "images/icon-24.png",
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
+  },
+  "browser_action": {
+    "default_icon": "images/icon-24.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["js/background.js"]
   },
   "permissions": [
     "storage",
@@ -15,13 +25,5 @@
     "http://fonts.googleapis.com/",
     "<all_urls>"
   ],
-  "background": {
-    "scripts": ["js/background.js"]
-  },
-  "browser_action": {
-    "default_icon": "images/icon-24.png",
-    "default_popup": "popup.html"
-  },
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "content_security_policy": "object-src 'self'; script-src 'self' https://www.google-analytics.com; script-src 'self' 'unsafe-eval';"
 }

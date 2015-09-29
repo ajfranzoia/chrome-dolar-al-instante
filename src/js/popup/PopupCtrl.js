@@ -21,7 +21,7 @@
     function setupListeners() {
       // Listen to rates update
       var ratesUpdatedListener = $scope.$on('rates:updated', function() {
-        RatesService.get(updateRates)
+        RatesService.get(updateRates);
       });
 
       // Deregister rates update listener on destroy
@@ -72,7 +72,7 @@
       // Apply changes to view
       $timeout(function() {
         $scope.$apply();
-      })
+      });
     }
   }
 

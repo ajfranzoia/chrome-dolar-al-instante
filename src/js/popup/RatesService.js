@@ -18,7 +18,7 @@
       chrome.storage.local.get('rates', function(items) {
         cb(items.rates);
       });
-    }
+    };
 
   }
 
