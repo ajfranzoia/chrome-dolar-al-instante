@@ -59,7 +59,7 @@
 
     if (typeof value !== 'undefined') {
       title = 'Última actualización: ' + moment(date).format('DD/MM/YY HH:ss');
-      value = String(value);
+      value = parseFloat(value).toFixed(2);
     } else {
       title = 'Esperando datos...';
       value = '...';
