@@ -1,48 +1,37 @@
 (function () {
   'use strict';
 
-  var dolarblue = require('../../../lib/dolar-blue'),
-      moment = require('moment'),
-      updateInterval,
-      lastRates,
-      interval = 10 * 3600;
+  var moment = require('moment');
+  var RatesUpdater = require('./RatesUpdater.js');
 
+  // Set up updater object
+  var updater = new RatesUpdater({
+    onUpdate: onRatesUpdated,
+    onError: function(err) {
+      console.log('Error: ' + err);
+    }
+  });
+
+  // Initialize ui
   chrome.browserAction.setBadgeBackgroundColor({color: [50, 140, 50, 255]});
-
-  updateInterval = setInterval(fetchRates, interval);
   updateIcon();
-  fetchRates();
+
 
   /**
    * Fetch current rates from dolar-blue API.
    * Triggers chrome message 'rates:updated'.
    *
-   * @return {undefinde}
+   * @param  {Object} rates New rates data
+   * @return {undefined}
    */
-  function fetchRates() {
-    dolarblue(function (err, data) {
-      if (err) { console.log("Error: " + err); return; }
+  function onRatesUpdated(data) {
+    // Update icon with new value
+    updateIcon(data.rates.blue.sell, data.rates.date);
 
-      var rates = data.rates;
-
-      // Check variation against last rates if found
-      if (lastRates) {
-        rates.blue.variation = rates.blue.sell > lastRates.blue.sell ? 1 : (rates.blue.sell === lastRates.blue.sell ? 0 : -1);
-        rates.oficial.variation = rates.oficial.sell > lastRates.oficial.sell ? 1 : (rates.oficial.sell === lastRates.oficial.sell ? 0 : -1);
-      } else {
-        rates.blue.variation = null;
-        rates.oficial.variation = null;
-      }
-      lastRates = rates;
-
-      // Update icon with new value
-      updateIcon(rates.blue.sell, rates.date);
-
-      // Save rates and notify
-      rates.date = rates.date.toISOString();
-      chrome.storage.local.set({'rates': rates}, function() {
-        chrome.runtime.sendMessage({event: 'rates:updated'}, function() {});
-      });
+    // Save rates and notify
+    data.rates.date = data.rates.date.toISOString();
+    chrome.storage.local.set({'rates': data.rates}, function() {
+      chrome.runtime.sendMessage({event: 'rates:updated'}, function() {});
     });
   }
 
