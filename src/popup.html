@@ -18,8 +18,8 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th class="text-center">Venta</th>
 						<th class="text-center">Compra</th>
+						<th class="text-center">Venta</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -28,12 +28,12 @@
 							<i class="fa fa-{{rate.icon}} rate-icon"></i>
 							{{rate.name}}
 						</td>
-						<td class="rate-sell">
-							{{rate.sell | number:2}}
-							<i class="variation-{{rate.variation === 1 ? 'up' : 'down'}} fa fa-caret-{{rate.variation === 1 ? 'up' : 'down'}}" ng-if="rate.variation"></i>
-						</td>
 						<td class="rate-buy">
 							{{rate.buy ? (rate.buy | number:2) : '-'}}
+						</td>
+						<td class="rate-sell">
+								{{rate.sell | number:2}}
+								<i class="variation-{{rate.variation === 1 ? 'up' : 'down'}} fa fa-caret-{{rate.variation === 1 ? 'up' : 'down'}}" ng-if="rate.variation"></i>
 						</td>
 					</tr>
 					<tr>
