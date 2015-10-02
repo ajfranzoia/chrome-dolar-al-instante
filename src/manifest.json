@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Dólar Blue al instante",
   "short_name": "DolarBlue",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Muestra el valor actualizado del Dólar Blue en el navegador y brinda información adicional sobre las demás cotizaciones.",
   "author": "Augusto Franzoia <ajfranzoia@gmail.com>",
   "icons": {
