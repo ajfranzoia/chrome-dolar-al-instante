@@ -22,6 +22,6 @@
 
   }
 
-  angular.module('popup').service('RatesService', RatesService);
+  angular.module('dbiPopup').service('RatesService', RatesService);
 
 })();

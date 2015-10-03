@@ -25,7 +25,7 @@ module.exports = {
   other: [
     'src/images/**/*',
     'src/fonts/**/*',
-    'src/*.html',
+    'src/**/*.html',
     'src/manifest.json',
   ]
 }

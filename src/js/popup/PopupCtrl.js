@@ -76,6 +76,6 @@
     }
   }
 
-  angular.module('popup').controller('PopupCtrl', PopupCtrl);
+  angular.module('dbiPopup').controller('PopupCtrl', PopupCtrl);
 
 })();

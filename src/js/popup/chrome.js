@@ -8,5 +8,5 @@
     return chrome;
   }
 
-  angular.module('popup').factory('chrome', Chrome);
+  angular.module('dbiPopup').factory('chrome', Chrome);
 })();
