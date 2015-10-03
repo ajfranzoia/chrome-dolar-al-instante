@@ -4,6 +4,7 @@ var del = require('del');
 var browserify = require('browserify');
 var argv = require('yargs').argv;
 var config = require('./gulp.config.js');
+var packageInfo = require('./package.json');
 var $ = require('gulp-load-plugins')();
 
 
@@ -62,8 +63,20 @@ gulp.task('build:other', function(cb) {
     .pipe(gulp.dest(buildPath()));
 });
 
-gulp.task('build:finish', function(cb) {
+gulp.task('build:finish', ['build:styles', 'build:js', 'build:other'], function(cb) {
+  if (isDist()) {
+    return gulp.src('build-dist/*')
+      .pipe($.zip('dist-' + packageInfo.version + '.zip'))
+      .pipe(gulp.dest('build-dist'));
+  } else {
+    cb();
+  }
 });
+
+
+/**
+ * Auxiliary functions
+ */
 
 function buildPath(path) {
   return (isDev() ? 'build-dev' : 'build-dist') + (path ? '/' + path : '');
