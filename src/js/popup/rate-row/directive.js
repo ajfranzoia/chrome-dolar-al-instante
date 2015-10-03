@@ -5,10 +5,10 @@
     return {
       restrict: 'A',
       replace: true,
-      scope: { rate: '=' },
+      scope: { rate: '=', converters: '=' },
       templateUrl: '/js/popup/rate-row/template.html',
       controllerAs: 'vm',
-      link: function link(scope, element, attrs) {
+      link: function link(scope, el, attrs) {
       }
     };
   }

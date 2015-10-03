@@ -5,11 +5,11 @@
 	</td>
 	<td class="rate-buy">
 		<div class="value">{{rate.buy ? (rate.buy | number:2) : '-'}}</div>
-		<dbi-converter ng-if="rate.buy" price="rate.buy"></dbi-converter>
+		<dbi-converter ng-if="converters && rate.buy" price="rate.buy"></dbi-converter>
 	</td>
 	<td class="rate-sell">
 		<div class="value">{{rate.sell | number:2}}</div>
 		<i class="variation-{{rate.variation === 1 ? 'up' : 'down'}} fa fa-caret-{{rate.variation === 1 ? 'up' : 'down'}}" ng-if="rate.variation"></i>
-		<dbi-converter price="rate.sell"></dbi-converter>
+		<dbi-converter ng-if="converters" price="rate.sell"></dbi-converter>
 	</td>
 </tr>

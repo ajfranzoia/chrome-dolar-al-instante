@@ -13,6 +13,7 @@ module.exports = {
       'bower_components/moment/moment.js',
       'bower_components/moment/locale/es.js',
       'bower_components/angular-moment/angular-moment.js',
+      'bower_components/angular-utils/dist/angular-utils.js',
       'src/js/popup/app.js',
       'src/js/popup/**/*.js',
       { path: '!src/js/popup/ga.js', env: 'dist' },

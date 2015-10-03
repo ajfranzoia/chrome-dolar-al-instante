@@ -4,13 +4,25 @@
   function PopupCtrl($scope, $timeout, RatesService) {
     var vm = this;
 
+    vm.mode = '';
     vm.rates = [];
     vm.gap = null;
     vm.lastUpdated = null;
+    vm.loaded = loaded;
+    vm.calculatorMode = false;
 
     // Set up events listeners and display rates
     setupListeners();
     RatesService.get(updateRates);
+
+    /**
+     * Returns true if any rates were loaded
+     *
+     * @return {boolean}
+     */
+    function loaded() {
+      return vm.rates.length;
+    }
 
     /**
      * Set up controller events.

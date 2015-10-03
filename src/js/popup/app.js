@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('dbiPopup', [
-    'angularMoment'
+    'angularMoment',
+    'angularUtils.digitsOnly'
   ])
 
   .run(function($rootScope, amMoment) {
