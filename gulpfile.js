@@ -18,7 +18,7 @@ gulp.task('clean', function(cb) {
   del(['build-dev', 'build-dist'], cb());
 });
 
-gulp.task('build', ['build:styles', 'build:js', 'build:other', 'build:finish']);
+gulp.task('build', ['build:styles', 'build:js', 'build:other', 'build:setVersion']);
   gulp.task('build:js', ['build:js:popup', 'build:js:background']);
 
 gulp.task('build:styles', function(cb) {
@@ -63,14 +63,16 @@ gulp.task('build:other', function(cb) {
     .pipe(gulp.dest(buildPath()));
 });
 
-gulp.task('build:finish', ['build:styles', 'build:js', 'build:other'], function(cb) {
-  if (isDist()) {
-    return gulp.src('build-dist/*')
-      .pipe($.zip('dist-' + packageInfo.version + '.zip'))
-      .pipe(gulp.dest('build-dist'));
-  } else {
-    cb();
-  }
+gulp.task('build:setVersion', ['build:other'], function(cb) {
+  return gulp.src(buildPath('manifest.json'))
+    .pipe($.replace('@@VERSION@@', packageInfo.version))
+    .pipe(gulp.dest(buildPath()));
+});
+
+gulp.task('pack', ['clean'], function(cb) {
+  return gulp.src('build-dist/**')
+    .pipe($.zip('dist-' + packageInfo.version + '.zip'))
+    .pipe(gulp.dest('build-dist'));
 });
 
 
