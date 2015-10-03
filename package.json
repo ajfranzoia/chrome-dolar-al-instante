@@ -1,6 +1,6 @@
 {
   "name": "chrome-dolar-blue",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Chrome extension that shows the Dolar Blue current value via browser icon and displays additional prices.",
   "author": "Augusto Franzoia <augusto@codaxis.com>",
   "license": "MIT",
