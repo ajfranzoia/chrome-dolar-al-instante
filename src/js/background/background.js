@@ -58,4 +58,4 @@
     chrome.browserAction.setBadgeText({text: value});
   }
 
-})();
+}());
