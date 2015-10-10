@@ -69,7 +69,7 @@ gulp.task('build:setVersion', ['build:other'], function(cb) {
     .pipe(gulp.dest(buildPath()));
 });
 
-gulp.task('pack', ['clean'], function(cb) {
+gulp.task('pack', function(cb) {
   return gulp.src('build-dist/**')
     .pipe($.zip('dist-' + packageInfo.version + '.zip'))
     .pipe(gulp.dest('build-dist'));
