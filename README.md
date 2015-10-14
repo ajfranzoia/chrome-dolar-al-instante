@@ -11,6 +11,8 @@ Utilizes [https://github.com/matiu/dolar-blue](https://github.com/matiu/dolar-bl
 ![Image of DolarBlue extension](http://static.codaxis.com/chrome-dolar-blue-popup.png)
 
 ## Changelog
+- 1.0.6:
+	- Allow manual rates refresh
 - 1.0.5:
 	- Disable useless checks during weekends and before 8AM/6PM during weekdays
 - 1.0.4:
