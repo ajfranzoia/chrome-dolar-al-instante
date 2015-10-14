@@ -1,19 +1,21 @@
 (function() {
   'use strict';
 
-  function PopupCtrl($scope, $timeout, RatesService) {
+  function PopupCtrl($scope, $timeout, RatesService, chrome) {
     var vm = this;
 
     vm.mode = '';
     vm.rates = [];
     vm.gap = null;
     vm.lastUpdated = null;
-    vm.loaded = loaded;
     vm.calculatorMode = false;
+    vm.loaded = loaded;
+    vm.refreshRates = refreshRates;
+    vm.refreshing = false;
 
     // Set up events listeners and display rates
     setupListeners();
-    RatesService.get(updateRates);
+    RatesService.get(updateDisplayedRates);
 
     /**
      * Returns true if any rates were loaded
@@ -25,6 +27,16 @@
     }
 
     /**
+     * Refreshes rates calling RatesService
+     *
+     * @return {undefined}
+     */
+    function refreshRates() {
+      vm.refreshing = true;
+      RatesService.refreshRates();
+    }
+
+    /**
      * Set up controller events.
      * Registers rates updated listener.
      *
@@ -33,7 +45,14 @@
     function setupListeners() {
       // Listen to rates update
       var ratesUpdatedListener = $scope.$on('rates:updated', function() {
-        RatesService.get(updateRates);
+
+        // Disable manual refreshing during one minute
+        vm.refreshing = null;
+        $timeout(function() {
+          vm.refreshing = false;
+        }, 60 * 1000);
+
+        RatesService.get(updateDisplayedRates);
       });
 
       // Deregister rates update listener on destroy
@@ -47,7 +66,7 @@
      * @param  {Array} rates Array of rates info
      * @return {undefined}
      */
-    function updateRates(rates) {
+    function updateDisplayedRates(rates) {
       if (typeof rates !== 'undefined' && rates !== null) {
         vm.rates = [
           {

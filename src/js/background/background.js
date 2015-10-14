@@ -16,6 +16,13 @@
   chrome.browserAction.setBadgeBackgroundColor({color: [50, 140, 50, 255]});
   updateIcon();
 
+  // Listen to update rates requests
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.name === 'rates:update') {
+      updater.checkRates({force: true});
+    }
+  });
+
 
   /**
    * Fetch current rates from dolar-blue API.

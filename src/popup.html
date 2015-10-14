@@ -12,7 +12,7 @@
 		<h4 id="header"><img src="/images/icon-24.png" alt="">
 			Dólar Blue al instante
 
-			<div id="calculator-toggle">
+			<div id="calculator-toggle" class="ng-cloak">
 				<label class="btn btn-xs {{vm.calculatorMode ? 'btn-primary' : 'btn-default'}}">
 					<input type="checkbox" ng-model="vm.calculatorMode" autocomplete="off">
 					<i class="fa fa-calculator"></i> Modo calculadora
@@ -20,11 +20,11 @@
 			</div>
 		</h4>
 
-		<span class="text-muted" ng-if="!vm.loaded()">
+		<span class="text-muted" ng-show="!vm.loaded()">
 			<i class="fa fa-cog fa-spin"></i> Esperando datos...
 		</span>
 
-		<div class="ng-cloak" ng-if="vm.loaded()">
+		<div class="ng-cloak" ng-show="vm.loaded()">
 			<table id="table-rates" class="table table-striped table-bordered">
 				<thead>
 					<tr>
@@ -44,7 +44,14 @@
 			</table>
 
 			<div id="footer">
-				<div><strong>Última actualización:</strong> {{vm.lastUpdated | amDateFormat:'DD/MM/YY &nbsp;HH:mm'}}</div>
+				<div>
+					<strong>Última actualización de valores:</strong> {{vm.lastUpdated | amDateFormat:'DD/MM/YY &nbsp;HH:mm'}}
+					<span ng-show="vm.refreshing !== null">
+						·
+						<a href="#" ng-click="vm.refreshRates()" ng-show="!vm.refreshing">Verificar ahora</a>
+						<span class="text-muted" ng-show="vm.refreshing">Verificando...</span>
+					</span>
+				</div>
 				<div id="source">Fuente: La Nación/Bluelytics API</div>
 			</div>
 		</div>

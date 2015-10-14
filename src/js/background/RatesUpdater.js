@@ -11,13 +11,18 @@
    */
   var RatesUpdater = function(config) {
 
-    var lastRates, checkInterval;
+    var lastRates,
+        checkInterval,
+        nextCheck;
+
     var defaults = {
-      checkInterval: 10 * 3600,
-      stabilityThreshold: 10 * 3600 * 6,
+      checkInterval: 10 * 60, // 600 seconds (10 minutes)
       onUpdate: function() {},
       onError: function() {}
     };
+
+    // Export public methods
+    this.checkRates = checkRates;
 
     // Init config values
     config = config || {};
@@ -30,15 +35,19 @@
     // Start checking
     checkRates();
 
+    console.log('RatesUpdates initialized with config:', config);
+
     /**
      * Fetch current rates from dolar-blue API.
      * Triggers chrome message 'rates:updated'.
      *
      * @return {undefined}
      */
-    function checkRates() {
+    function checkRates(options) {
+      options = options || {};
+
       // Do not check if there is any restriction
-      if (!shouldCheck()) {
+      if (!shouldCheck() && !options.force) {
         return;
       }
 
@@ -67,7 +76,7 @@
         config.onUpdate(data);
 
         // Schedule next check
-        setTimeout(checkRates, config.checkInterval);
+        nextCheck = setTimeout(checkRates, config.checkInterval * 1000);
       });
     }
 
