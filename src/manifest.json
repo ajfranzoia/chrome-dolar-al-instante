@@ -20,7 +20,6 @@
   "permissions": [
     "storage",
     "background",
-    "http://contenidos.lanacion.com.ar/*",
     "http://api.bluelytics.com.ar/*"
   ],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
