@@ -85,8 +85,8 @@
           }
         ];
 
-        // Blue/oficial gap = ((blue - oficial) / oficial) %
-        vm.gap = ((rates.blue.sell - rates.oficial.sell) / (rates.oficial.sell * 1.0)) * 100;
+        vm.gapSell = Math.abs(rates.blue.sell - rates.oficial.sell);
+        vm.gapBuy = Math.abs(rates.blue.buy - rates.oficial.buy);
         vm.lastUpdated = rates.date;
       }
 
