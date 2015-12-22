@@ -11,6 +11,8 @@ Utilizes [https://github.com/matiu/dolar-blue](https://github.com/matiu/dolar-bl
 ![Image of DolarBlue extension](http://static.codaxis.com/chrome-dolar-blue-popup.png)
 
 ## Changelog
+- 1.0.10:
+	- Added rate-the-extension link
 - 1.0.9:
 	- Fixed popup columns
 - 1.0.8:
