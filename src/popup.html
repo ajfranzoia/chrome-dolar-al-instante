@@ -37,8 +37,14 @@
 					<tr dbi-rate-row ng-repeat="rate in vm.rates" rate="rate" converters="vm.calculatorMode"></tr>
 					<tr>
 						<td class="gap-name">Diferencia</td>
-						<td class="gap-value">{{vm.gapBuy | number:2}}</td>
-						<td class="gap-value">{{vm.gapSell | number:2}}</td>
+						<td class="gap-value">
+							{{vm.gapBuy | number:2}}
+							<span class="percentage">· <span>{{vm.gapBuyPercentage | number:0}}</span>%</span>
+						</td>
+						<td class="gap-value">
+							{{vm.gapSell | number:2}}
+							<span class="percentage">· <span>{{vm.gapSellPercentage | number:0}}</span>%</span>
+						</td>
 					</tr>
 				</tbody>
 			</table>

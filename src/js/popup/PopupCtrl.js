@@ -85,8 +85,11 @@
           }
         ];
 
-        vm.gapSell = Math.abs(rates.blue.sell - rates.oficial.sell);
         vm.gapBuy = Math.abs(rates.blue.buy - rates.oficial.buy);
+        vm.gapBuyPercentage = vm.gapBuy * 100 / rates.blue.buy;
+        vm.gapSell = Math.abs(rates.blue.sell - rates.oficial.sell);
+        vm.gapSellPercentage = vm.gapSell * 100 / rates.blue.sell;
+
         vm.lastUpdated = rates.date;
       }
 
