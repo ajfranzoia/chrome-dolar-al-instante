@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Dólar Blue al instante",
-  "short_name": "DolarBlue",
+  "name": "Dólar al instante",
+  "short_name": "DolarAlInstante",
   "version": "@@VERSION@@",
-  "description": "Muestra el valor actualizado del Dólar Blue en el navegador y brinda información adicional sobre las demás cotizaciones.",
+  "description": "Muestra el valor actualizado del dólar en Argentina en el navegador y brinda información adicional sobre las cotizaciones.",
   "author": "Augusto Franzoia <ajfranzoia@gmail.com>",
   "icons": {
     "24": "images/icon-24.png",

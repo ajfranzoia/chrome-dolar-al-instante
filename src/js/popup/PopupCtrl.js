@@ -70,13 +70,6 @@
       if (typeof rates !== 'undefined' && rates !== null) {
         vm.rates = [
           {
-            name: 'Blue',
-            sell: rates.blue.sell,
-            buy: rates.blue.buy,
-            variation: rates.blue.variation,
-            icon: 'money'
-          },
-          {
             name: 'Oficial',
             sell: rates.oficial.sell,
             buy: rates.oficial.buy,
@@ -84,15 +77,12 @@
             icon: 'money'
           },
           {
-            name: 'Ahorro (+20%)',
-            sell: rates.oficial.sell * 1.20,
-            icon: 'inbox'
-          },
-          {
-            name: 'Tarjeta (+35%)',
-            sell: rates.oficial.sell * 1.35,
-            icon: 'globe'
-          },
+            name: 'Blue',
+            sell: rates.blue.sell,
+            buy: rates.blue.buy,
+            variation: rates.blue.variation,
+            icon: 'money'
+          }
         ];
 
         // Blue/oficial gap = ((blue - oficial) / oficial) %

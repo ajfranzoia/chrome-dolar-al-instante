@@ -33,7 +33,7 @@
    */
   function onRatesUpdated(data) {
     // Update icon with new value
-    updateIcon(data.rates.blue.sell, data.rates.date);
+    updateIcon(data.rates.oficial.sell, data.rates.date);
 
     // Save rates and notify
     data.rates.date = data.rates.date.toISOString();

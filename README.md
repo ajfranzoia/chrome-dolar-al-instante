@@ -1,7 +1,7 @@
-Dólar Blue al instante
+Dólar al instante
 ==========
 
-Google Chrome browser extension that shows the current "Dólar Blue" value with a browser icon and displays additional prices.
+Google Chrome browser extension that shows the current dolar value in Argentina through a browser icon and displays additional prices.
 
 Available at [Chrome Web Store](https://chrome.google.com/webstore/detail/dólar-blue-al-instante/bcadgochooecaafmhckfgpjmieepgblp).
 
@@ -11,6 +11,8 @@ Utilizes [https://github.com/matiu/dolar-blue](https://github.com/matiu/dolar-bl
 ![Image of DolarBlue extension](http://static.codaxis.com/chrome-dolar-blue-popup.png)
 
 ## Changelog
+- 1.0.8:
+	- Display official dolar value instead of blue's
 - 1.0.7:
 	- Remove LaNacion from sources
 - 1.0.6:
