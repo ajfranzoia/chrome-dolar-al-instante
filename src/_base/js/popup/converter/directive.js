@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  /**
+   * Dollars to pesos conversion widget directive
+   *
+   * @return {undefined}
+   */
   function dbiConverter() {
     return {
       restrict: 'AE',

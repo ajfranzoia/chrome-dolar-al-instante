@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function PopupCtrl($scope, $timeout, RatesService, chrome) {
+  function PopupCtrl($scope, $timeout, RatesService, config) {
     var vm = this;
 
     vm.mode = '';
@@ -12,6 +12,7 @@
     vm.loaded = loaded;
     vm.refreshRates = refreshRates;
     vm.refreshing = false;
+    vm.reviewUrl = config;
 
     // Set up events listeners and display rates
     setupListeners();

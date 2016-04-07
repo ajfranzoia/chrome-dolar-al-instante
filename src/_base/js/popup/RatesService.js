@@ -4,9 +4,9 @@
   /**
    * Auxiliar service for store rates data.
    *
-   * @param {Chrome} chrome Chrome angularized service
+   * @param {provider} Browser provider
    */
-  function RatesService(chrome) {
+  function RatesService(provider) {
 
     /**
      * Returns latest stored rates.
@@ -15,7 +15,7 @@
      * @return {undefined}
      */
     function get(cb) {
-      chrome.storage.local.get('rates', function(items) {
+      provider.get('rates', function(items) {
         cb(items.rates);
       });
     }
@@ -27,8 +27,7 @@
      * @return {undefined}
      */
     function refreshRates() {
-      chrome.runtime.sendMessage({name: 'rates:update'}, function(response) {
-      });
+      provider.trigger('rates:doUpdate');
     }
 
     return {

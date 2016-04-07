@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  /**
+   * Popup rates row directive
+   *
+   * @return {undefined}
+   */
   function dbiRateRow() {
     return {
       restrict: 'A',

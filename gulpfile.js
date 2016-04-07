@@ -1,28 +1,40 @@
-var gulp = require('gulp');
-var path = require('path');
-var del = require('del');
-var browserify = require('browserify');
-var argv = require('yargs').argv;
-var config = require('./gulp.config.js');
-var packageInfo = require('./package.json');
-var $ = require('gulp-load-plugins')();
+var gulp = require('gulp'),
+    path = require('path'),
+    del = require('del'),
+    argv = require('yargs').argv,
+    $ = require('gulp-load-plugins')(),
+    gulpsync = require('gulp-sync')(gulp),
+    package = require('./package.json'),
+    config = require('./config.json'),
+    provider = config.providers[getProvider()];
 
-
+// Watch task
 gulp.task('watch', ['build'], function () {
   gulp.watch('src/**/*.js', ['build:js']);
   gulp.watch('src/**/*.less', ['build:styles']);
   gulp.watch('src/**/*.html', ['build:other']);
 });
 
-gulp.task('clean', function(cb) {
-  del(['build-dev', 'build-dist'], cb());
+// Clean tmp and build dirs task
+gulp.task('clean', function() {
+  return del(['tmp', 'build']);
 });
 
-gulp.task('build', ['build:styles', 'build:js', 'build:other', 'build:setVersion']);
-  gulp.task('build:js', ['build:js:popup', 'build:js:background']);
+// Prepare files before build task
+gulp.task('prepareBuild', function() {
+  return gulp.src(['src/_base/**/*', 'src/' + getProvider() + '/**/*']).pipe(gulp.dest('tmp'));
+});
 
-gulp.task('build:styles', function(cb) {
-  return gulp.src(config.styles)
+// Main build task
+gulp.task('build', gulpsync.sync(['clean', 'prepareBuild', ['build:js', 'build:styles', 'build:other', 'build:replaceVars'], 'pack']));
+
+// Build js task, for popup and background
+gulp.task('build:js', ['build:js:popup', 'build:js:background']);
+
+// Build styles task
+gulp.task('build:styles', function() {
+  return gulp
+    .src(config.sourceFiles.styles, {cwd: 'tmp'})
     .pipe($.less({
       paths: [ path.join(__dirname, 'bower_components') ]
     }))
@@ -31,22 +43,26 @@ gulp.task('build:styles', function(cb) {
     .pipe(gulp.dest(buildPath('css')));
 });
 
+// Build popup js task
 gulp.task('build:js:popup', function() {
-  var filter = $.filter(['src/**/*.js', '!src/js/popup/ga.js'], {restore: true});
+  var files = config.sourceFiles.scripts.popup;
 
-  return gulp.src(filterFiles(config.scripts.popup), {base: '.'})
-    .pipe(filter)
+  return gulp
+    .src(files, {cwd: 'tmp'})
     .pipe($.jshint())
     .pipe($.jshint.reporter('default'))
-    .pipe(filter.restore)
     .pipe($.concat('popup.js'))
     .pipe($.ngAnnotate())
     .pipe($.if(isDist(), $.uglify()))
     .pipe(gulp.dest(buildPath('js')));
 });
 
+// Build background js task
 gulp.task('build:js:background', function() {
-  return gulp.src(config.scripts.background)
+  var files = config.sourceFiles.scripts.background;
+
+  return gulp
+    .src(files, {cwd: 'tmp'})
     .pipe($.jshint())
     .pipe($.jshint.reporter('default'))
     .pipe($.concat('background.js'))
@@ -58,21 +74,33 @@ gulp.task('build:js:background', function() {
     .pipe(gulp.dest(buildPath('js')));
 });
 
-gulp.task('build:other', function(cb) {
-  return gulp.src(config.other, {base: 'src'})
+// Build other files task
+gulp.task('build:other', function() {
+  return gulp
+    .src(config.sourceFiles.other, {cwd: 'tmp'})
+    .pipe(gulp.dest(function (file) {
+      var dir = path.basename(file.base);
+      return buildPath(dir === 'tmp' ? '' : dir);
+    }));
+});
+
+// Replace variables task
+gulp.task('build:replaceVars', ['build:other'], function() {
+  return gulp
+    .src(buildPath('manifest.json'))
+    .pipe($.replace('@@VERSION@@', package.version))
+    .pipe($.replace('@@REVIEW_URL@@', provider.reviewUrl))
     .pipe(gulp.dest(buildPath()));
 });
 
-gulp.task('build:setVersion', ['build:other'], function(cb) {
-  return gulp.src(buildPath('manifest.json'))
-    .pipe($.replace('@@VERSION@@', packageInfo.version))
-    .pipe(gulp.dest(buildPath()));
-});
-
-gulp.task('pack', function(cb) {
-  return gulp.src('build-dist/**')
-    .pipe($.zip('dist-' + packageInfo.version + '.zip'))
-    .pipe(gulp.dest('build-dist'));
+// Pack task
+gulp.task('pack', function() {
+  if (isDist) {
+    return gulp
+      .src('build/dist/**')
+      .pipe($.zip('dist-' + package.version + '.zip'))
+      .pipe(gulp.dest('build/dist'));
+  }
 });
 
 
@@ -81,7 +109,7 @@ gulp.task('pack', function(cb) {
  */
 
 function buildPath(path) {
-  return (isDev() ? 'build-dev' : 'build-dist') + (path ? '/' + path : '');
+  return [(isDev() ? 'build/dev' : 'build/dist'), getProvider(), path].join('/');
 }
 
 function isDist() {
@@ -92,26 +120,21 @@ function isDev() {
   return !isDist();
 }
 
-function filterFiles(input) {
-  var output = [];
-  input.forEach(function(item) {
-    var path;
+function getProvider() {
+  var provider;
 
-    if (typeof item === 'string') {
-      output.push(item);
-      return;
-    }
+  if (this._provider) {
+    return this._provider;
+  }
 
-    if (item.env === 'dist' && !isDev()) {
-      output.push(item.path);
-      return;
-    }
+  provider = argv.provider || argv.p;
 
-    if (item.env === 'dev' && isDev()) {
-      output.push(item.path);
-      return;
-    }
-  });
+  if (!provider || ['chrome', 'firefox'].indexOf(provider) === -1) {
+    throw new Error('Invalid provider');
+  }
 
-  return output;
+  this._provider = provider;
+
+  return provider;
 }
+

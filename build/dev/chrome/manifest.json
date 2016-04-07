@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Dólar al instante",
+  "short_name": "DolarAlInstante",
+  "version": "1.0.11",
+  "description": "Muestra el valor actualizado del dólar en Argentina en el navegador y brinda información adicional sobre las cotizaciones.",
+  "author": "Augusto Franzoia <ajfranzoia@gmail.com>",
+  "icons": {
+    "24": "images/icon-24.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "browser_action": {
+    "default_icon": "images/icon-24.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+  "permissions": [
+    "storage",
+    "background",
+    "http://api.bluelytics.com.ar/*"
+  ],
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
+}

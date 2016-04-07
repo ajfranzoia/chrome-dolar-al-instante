@@ -1,0 +1,40 @@
+{
+  "sourceFiles": {
+    "styles": [
+      "styles/styles.less"
+    ],
+    "scripts": {
+      "popup": [
+        "bower_components/jquery/dist/jquery.js",
+        "bower_components/angular/angular.js",
+        "bower_components/lodash/lodash.js",
+        "bower_components/bootstrap/dist/js/bootstrap.js",
+        "bower_components/moment/moment.js",
+        "bower_components/moment/locale/es.js",
+        "bower_components/angular-moment/angular-moment.js",
+        "bower_components/angular-utils/dist/angular-utils.js",
+        "js/popup/app.js",
+        "js/popup/**/*.js",
+        "js/common/*.js"
+      ],
+      "background": [
+        "js/background/background.js",
+        "js/common/*.js"
+      ]
+    },
+    "other": [
+      "images/**/*",
+      "fonts/**/*",
+      "**/*.html",
+      "manifest.json"
+    ]
+  },
+  "providers": {
+    "chrome": {
+      "reviewUrl": "https://chrome.google.com/webstore/detail/d%C3%B3lar-al-instante/bcadgochooecaafmhckfgpjmieepgblp/reviews"
+    },
+    "firefox": {
+      "reviewUrl": ""
+    }
+  }
+}

@@ -1,8 +1,9 @@
 (function () {
   'use strict';
 
-  var moment = require('moment');
-  var RatesUpdater = require('./RatesUpdater.js');
+  var moment = require('moment'),
+      RatesUpdater = require('./RatesUpdater.js'),
+      provider = require('../provider.js');
 
   // Set up updater object
   var updater = new RatesUpdater({
@@ -13,20 +14,17 @@
   });
 
   // Initialize ui
-  chrome.browserAction.setBadgeBackgroundColor({color: [50, 140, 50, 255]});
+  provider.setBadgeColor([50, 140, 50, 255]);
   updateIcon();
 
   // Listen to update rates requests
-  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.name === 'rates:update') {
-      updater.checkRates({force: true});
-    }
+  provider.on('rates:doUpdate', function (data) {
+    updater.checkRates({force: true});
   });
-
 
   /**
    * Fetch current rates from dolar-blue API.
-   * Triggers chrome message 'rates:updated'.
+   * Triggers event 'rates:updated'.
    *
    * @param  {Object} rates New rates data
    * @return {undefined}
@@ -37,8 +35,8 @@
 
     // Save rates and notify
     data.rates.date = data.rates.date.toISOString();
-    chrome.storage.local.set({'rates': data.rates}, function() {
-      chrome.runtime.sendMessage({event: 'rates:updated'}, function() {});
+    provider.store({'rates': data.rates}, function() {
+      provider.trigger('rates:updated');
     });
   }
 
@@ -61,8 +59,8 @@
       value = '...';
     }
 
-    chrome.browserAction.setTitle({title: title});
-    chrome.browserAction.setBadgeText({text: value});
+
+    provider.setIconInfo(title, value);
   }
 
 }());

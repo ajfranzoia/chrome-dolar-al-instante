@@ -35,11 +35,8 @@
     // Start checking
     checkRates();
 
-    console.log('RatesUpdates initialized with config:', config);
-
     /**
      * Fetch current rates from dolar-blue API.
-     * Triggers chrome message 'rates:updated'.
      *
      * @return {undefined}
      */
