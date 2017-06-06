@@ -8,6 +8,10 @@
     "lodash": "~3.10.1",
     "moment": "~2.10.6",
     "font-awesome": "fontawesome#~4.4.0",
-    "angular-moment": "~0.10.3"
+    "angular-moment": "~0.10.3",
+    "angular-utils": "https://github.com/ajfranzoia/angular-utils.git",
+    "angular-route": "1.4.5",
+    "chart.js": "Chart-js#^2.6.0",
+    "angular-chart.js": "^1.1.1"
   }
 }

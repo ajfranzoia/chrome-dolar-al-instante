@@ -13,6 +13,9 @@ Utilizes [https://github.com/matiu/dolar-blue](https://github.com/matiu/dolar-bl
 ![Image of DolarBlue extension](http://static.codaxis.com/chrome-dolar-blue.png)
 
 ## Changelog
+- 1.1.0:
+	- Added historic functionality
+	- Switched to Semver
 - 1.0.11:
 	- Add values difference as percentage
 - 1.0.10:
@@ -41,5 +44,6 @@ Utilizes [https://github.com/matiu/dolar-blue](https://github.com/matiu/dolar-bl
 	- Fix value display on browser icon
 
 ## TODO
-- Add graphs with rates evolution
+- ~~Add graphs with rates evolution~~
+- Navigate the graph to see further back in time
 - Animate icon on value change

@@ -6,64 +6,11 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 	<link rel="stylesheet" href="/css/extension.css">
-</head>
-<body class="popup" ng-class="{calculator: vm.calculatorMode}" ng-controller="PopupCtrl as vm">
-	<div class="container-fluid">
-		<h4 id="header"><img src="/images/icon-24.png" alt="">
-			Dólar al instante
-
-			<div id="calculator-toggle" class="ng-cloak">
-				<label class="btn btn-xs {{vm.calculatorMode ? 'btn-primary' : 'btn-default'}}">
-					<input type="checkbox" ng-model="vm.calculatorMode" autocomplete="off">
-					<i class="fa fa-calculator"></i> Modo calculadora
-				</label>
-			</div>
-		</h4>
-
-		<span class="text-muted" ng-show="!vm.loaded()">
-			<i class="fa fa-cog fa-spin"></i> Esperando datos...
-		</span>
-
-		<div class="ng-cloak" ng-show="vm.loaded()">
-			<table id="table-rates" class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th></th>
-						<th class="text-center">Compra</th>
-						<th class="text-center">Venta</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr dbi-rate-row ng-repeat="rate in vm.rates" rate="rate" converters="vm.calculatorMode"></tr>
-					<tr>
-						<td class="gap-name">Diferencia</td>
-						<td class="gap-value">
-							{{vm.gapBuy | number:2}}
-							<span class="percentage">· <span>{{vm.gapBuyPercentage | number:0}}</span>%</span>
-						</td>
-						<td class="gap-value">
-							{{vm.gapSell | number:2}}
-							<span class="percentage">· <span>{{vm.gapSellPercentage | number:0}}</span>%</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<div id="footer">
-				<div>
-					<strong>Última actualización de valores:</strong> {{vm.lastUpdated | amDateFormat:'DD/MM/YY &nbsp;HH:mm'}}
-					<span ng-show="vm.refreshing !== null">
-						·
-						<a href="#" ng-click="vm.refreshRates()" ng-show="!vm.refreshing">Verificar ahora</a>
-						<span class="text-muted" ng-show="vm.refreshing">Verificando...</span>
-					</span>
-				</div>
-				<div id="source">Fuente: Bluelytics API</div>
-				<div id="rate"><a target="_blank" href="https://chrome.google.com/webstore/detail/d%C3%B3lar-al-instante/bcadgochooecaafmhckfgpjmieepgblp/reviews"><i class="fa fa-star"></i> ¿Te es útil la extensión? Calificala positivamente acá</a></div>
-			</div>
-		</div>
-
-	</div>
 	<script src="/js/popup.js"></script>
+</head>
+<body class="popup">
+	<div class="container-fluid">
+		<div ng-view></div>
+	</div>
 </body>
 </html>

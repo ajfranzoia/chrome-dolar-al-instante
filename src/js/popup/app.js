@@ -2,12 +2,13 @@
   'use strict';
 
   angular.module('dbiPopup', [
+    'ngRoute',
     'angularMoment',
-    'angularUtils.digitsOnly'
+    'angularUtils.digitsOnly',
+    'chart.js'
   ])
 
   .run(function($rootScope, amMoment) {
-
     // Set locale
     amMoment.changeLocale('es');
 
@@ -17,6 +18,16 @@
       $rootScope.$broadcast(request.event, request);
     });
 
+  })
+
+  .config(function($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl : '../../partials/index.html'
+      })
+      .when('/historic', {
+        templateUrl : '../../partials/historic.html'
+      });
   });
 
 })();
