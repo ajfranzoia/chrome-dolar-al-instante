@@ -20,7 +20,7 @@
       vm.series = ['Compra', 'Venta'];
       vm.data = [[], []];
 
-      for(var i = rates.length - 1; i >= 0,  i >= rates.length - 20; i--) {
+      for(var i = rates.length - 1; i >= 0 &&  i >= rates.length - 20; i--) {
         vm.labels.push(rates[i].date);
         vm.data[0].push(rates[i].buy);
         vm.data[1].push(rates[i].sell);
