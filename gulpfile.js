@@ -11,7 +11,7 @@ var $ = require('gulp-load-plugins')();
 gulp.task('watch', ['build'], function () {
   gulp.watch('src/**/*.js', ['build:js']);
   gulp.watch('src/**/*.less', ['build:styles']);
-  gulp.watch('src/**/*.html', ['build:other']);
+  gulp.watch('src/**/*.html', ['build:other', 'build:setVersion']);
 });
 
 gulp.task('clean', function(cb) {

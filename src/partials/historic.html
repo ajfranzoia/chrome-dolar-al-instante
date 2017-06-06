@@ -1,0 +1,20 @@
+<div ng-class="{calculator: vm.calculatorMode}" ng-controller="HistoricCtrl as vm">
+	<h4 id="header"><img src="/images/icon-24.png" alt="">
+		Historico
+
+		<div id="calculator-toggle" class="ng-cloak">
+			<a class="btn btn-xs btn-default" href="#/">
+				<i class="fa fa-usd"></i> Cotización
+			</a>
+		</div>
+	</h4>
+
+	<span class="text-muted" ng-show="!vm.loaded">
+		<i class="fa fa-cog fa-spin"></i> Esperando datos...
+	</span>
+
+	<div class="ng-cloak" ng-show="vm.loaded">
+		<canvas class="chart chart-line" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series"></canvas>
+	</div>
+
+</div>

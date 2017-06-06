@@ -21,6 +21,18 @@
     }
 
     /**
+     * Returns the historic rates stored.
+     *
+     * @param  {Function} cb Callback
+     * @return {undefined}
+     */
+    function getHistoric(cb) {
+      chrome.storage.local.get('historic', function(result) {
+        cb(result.historic);
+      });
+    }
+
+    /**
      * Force rates refresh.
      * Triggers rates:update event.
      *
@@ -33,7 +45,8 @@
 
     return {
       get: get,
-      refreshRates: refreshRates
+      refreshRates: refreshRates,
+      getHistoric: getHistoric
     };
   }
 

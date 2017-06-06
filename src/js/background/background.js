@@ -40,6 +40,16 @@
     chrome.storage.local.set({'rates': data.rates}, function() {
       chrome.runtime.sendMessage({event: 'rates:updated'}, function() {});
     });
+
+    //Get accepts as a param an object which defines a default value
+    chrome.storage.local.get({'historic': []}, function(result) {
+      result.historic.push({
+        date: moment(data.rates.date).format('DD/MM/YY'),
+        sell: data.rates.oficial.sell,
+        buy: data.rates.oficial.buy
+      });
+      chrome.storage.local.set({'historic': result.historic}, function() {});
+    });
   }
 
   /**
