@@ -47,7 +47,7 @@
 				<strong>Última actualización de valores:</strong> {{vm.lastUpdated | amDateFormat:'DD/MM/YY &nbsp;HH:mm'}}
 				<span ng-show="vm.refreshing !== null">
 					·
-					<a href="#" ng-click="vm.refreshRates()" ng-show="!vm.refreshing">Verificar ahora</a>
+					<a href="" ng-click="vm.refreshRates()" ng-show="!vm.refreshing">Verificar ahora</a>
 					<span class="text-muted" ng-show="vm.refreshing">Verificando...</span>
 				</span>
 			</div>

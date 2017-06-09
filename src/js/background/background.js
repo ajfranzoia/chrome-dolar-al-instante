@@ -75,7 +75,7 @@
     getHistoric(function(err, historic) {
       if(shouldSaveHistoric(historic, data)) {
         historic.push({
-          date: moment(data.rates.date).format('DD/MM/YY'),
+          date: moment(data.rates.date).format('DD/MM'),
           sell: data.rates.oficial.sell,
           buy: data.rates.oficial.buy
         });
