@@ -13,6 +13,8 @@ Utilizes [https://github.com/matiu/dolar-blue](https://github.com/matiu/dolar-bl
 ![Image of DolarBlue extension](http://static.codaxis.com/chrome-dolar-blue.png)
 
 ## Changelog
+- 1.2.1:
+	- Fixed problem with data sources
 - 1.2.0:
 	- Added pagination to the graph data
 - 1.1.0:
