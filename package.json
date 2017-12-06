@@ -1,6 +1,6 @@
 {
   "name": "chrome-dolar-blue",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Chrome extension that shows the current dolar value in Argentina through a browser icon.",
   "author": "Augusto Franzoia <augusto@codaxis.com>",
   "license": "MIT",
