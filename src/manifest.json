@@ -21,7 +21,8 @@
     "storage",
     "background",
     "http://api.bluelytics.com.ar/*",
-    "http://api.estadisticasbcra.com/*"
+    "http://api.estadisticasbcra.com/*",
+    "http://dolar-api.codaxis.com:3033/*"
   ],
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
 }

@@ -65,6 +65,7 @@
         if (lastRates) {
           rates.blue.variation = rates.blue.sell > lastRates.blue.sell ? 1 : (rates.blue.sell === lastRates.blue.sell ? 0 : -1);
           rates.oficial.variation = rates.oficial.sell > lastRates.oficial.sell ? 1 : (rates.oficial.sell === lastRates.oficial.sell ? 0 : -1);
+          rates.mayorista.variation = rates.mayorista.sell > lastRates.mayorista.sell ? 1 : (rates.mayorista.sell === lastRates.mayorista.sell ? 0 : -1);
         } else {
           rates.blue.variation = rates.oficial.variation = null;
         }
