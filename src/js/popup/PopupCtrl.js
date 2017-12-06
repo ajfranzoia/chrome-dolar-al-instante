@@ -82,6 +82,13 @@
             buy: rates.blue.buy,
             variation: rates.blue.variation,
             icon: 'money'
+          },
+          {
+            name: 'Mayorista',
+            sell: rates.mayorista.sell,
+            buy: rates.mayorista.buy,
+            variation: rates.mayorista.variation,
+            icon: 'money'
           }
         ];
 
