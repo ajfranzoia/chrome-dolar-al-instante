@@ -12,18 +12,28 @@
 	<span class="text-muted" ng-show="!vm.loaded">
 		<i class="fa fa-cog fa-spin"></i> Esperando datos...
 	</span>
-
-	<div class="ng-cloak" ng-show="vm.loaded">
-		<div class="pull-right" ng-show="vm.rates.length > vm.sampleSize">
-			<button class="btn btn-default btn-xs" ng-click="vm.paginate(vm.currentPage + 1)" ng-disabled="vm.currentPage == vm.maxPage">
-				<i class="fa fa-chevron-left"></i>
-			</button>
-			<button class="btn btn-default btn-xs" ng-click="vm.paginate(vm.currentPage - 1)" ng-disabled="vm.currentPage == 1">
-				<i class="fa fa-chevron-right"></i>
-			</button>
+	<div class="row">
+		<div class="col-xs-5">
+			<select ng-model="vm.type" ng-change="vm.fetch(1)" class="form-control input-xs">
+				<option value="oficial">Dolar Oficial</option>
+				<option value="blue">Dolar Blue</option>
+				<option value="mayorista">Dolar Mayorista</option>
+			</select>
 		</div>
+		<div class="col-xs-7">
+			<div class="pull-right" ng-show="vm.loaded && vm.maxPage > 1">
+				<button class="btn btn-default btn-xs" ng-click="vm.fetch(vm.currentPage + 1)" ng-disabled="vm.currentPage == vm.maxPage">
+					<i class="fa fa-chevron-left"></i>
+				</button>
+				<button class="btn btn-default btn-xs" ng-click="vm.fetch(vm.currentPage - 1)" ng-disabled="vm.currentPage == 1">
+					<i class="fa fa-chevron-right"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<div class="ng-cloak" ng-show="vm.loaded">
 		<canvas class="chart chart-line" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series"></canvas>
-
 	</div>
 
 </div>
