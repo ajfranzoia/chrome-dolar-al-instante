@@ -16,6 +16,7 @@ Utilizes [https://github.com/matiu/dolar-blue](https://github.com/matiu/dolar-bl
 
 - 1.3.0:
 	-	Changed historic from local to remote source
+	- Added filter for currency in historic
 - 1.2.1:
 	- Fixed problem with data sources
 - 1.2.0:
