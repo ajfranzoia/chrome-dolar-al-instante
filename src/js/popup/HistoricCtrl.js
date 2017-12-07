@@ -5,47 +5,44 @@
     var vm = this;
 
     vm.loaded = false;
-    vm.sampleSize = 20;
+    vm.sampleSize = 20; //items per page
     vm.currentPage = 1;
     vm.maxPage = 1;
-    vm.rates = [];
+    vm.type = 'oficial'; //currency type value
+    vm.series = ['Compra', 'Venta'];
 
-    RatesService.getHistoric(updateDisplayedRates);
+    /**
+     * Makes an API call specifying the offset (pageSize * (current - 1))
+     * and the currency type
+     * @param  {Integer} page Page number
+     * @return {undefined}
+     */
+    vm.fetch = function(page) {
+      vm.currentPage = page;
+      vm.loaded = false;
+
+      RatesService.getHistoric(vm.type, vm.sampleSize * (vm.currentPage - 1))
+        .then(updateDisplayedRates)
+        .catch(function(err) {
+          console.log('La concha de Gerling');
+        });
+    };
 
     /**
      * Updates displayed historic rates.
-     * Calls the paginate function in page 1
      *
-     * @param  {Array} rates Array of rates through history
+     * @param  {Object} results API response with rows and total records
      * @return {undefined}
      */
-    function updateDisplayedRates(rates) {
-      vm.rates = rates;
-      //pagination goes in the opposite logical direction in order to show the latest values first
-      vm.maxPage = Math.ceil(rates.length / vm.sampleSize);
-      vm.paginate(1);
-    }
-
-    /**
-     * Updates the graph showing a paginated portion of the stored historic data
-     *
-     * @param  {Int} Page number
-     * @return {undefined}
-     */
-    vm.paginate = function(page) {
-      vm.currentPage = page;
+    function updateDisplayedRates(results) {
       vm.labels = [];
-      vm.series = ['Compra', 'Venta'];
       vm.data = [[], []];
+      vm.maxPage = Math.ceil(results.count / vm.sampleSize);
 
-      var to = vm.rates.length - (20 * (page - 1));
-      var from = to - 20 >= 0 ? to - 20 : 0;
-      var sample = vm.rates.slice(from, to);
-
-      angular.forEach(sample, function(data) {
-        vm.labels.push(data.date);
-        vm.data[0].push(data.buy);
-        vm.data[1].push(data.sell);
+      angular.forEach(results.rows, function(data) {
+        vm.labels.unshift(formatDate(data.date));
+        vm.data[0].unshift(data.buy);
+        vm.data[1].unshift(data.sell);
       });
 
       vm.loaded = true;
@@ -54,7 +51,20 @@
       $timeout(function() {
         $scope.$apply();
       });
-    };
+    }
+
+    /**
+     * Returns a string to display the date DD/MM
+     *
+     * @param  {String} date
+     * @return {String}
+     */
+    function formatDate(date) {
+      date = new Date(date);
+      return String(date.getDate()) + '/' + String(date.getMonth() + 1);
+    }
+
+    vm.fetch(1);
   }
 
   angular.module('dbiPopup').controller('HistoricCtrl', HistoricCtrl);

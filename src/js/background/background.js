@@ -23,7 +23,6 @@
     }
   });
 
-
   /**
    * Fetch current rates from dolar-blue API.
    * Triggers chrome message 'rates:updated'.
@@ -39,48 +38,6 @@
     data.rates.date = data.rates.date.toISOString();
     chrome.storage.local.set({'rates': data.rates}, function() {
       chrome.runtime.sendMessage({event: 'rates:updated'}, function() {});
-    });
-
-    //saves historic
-    saveHistoric(data);
-  }
-
-  /**
-   * Get stored historic data
-   * @param  {Function}
-   */
-  function getHistoric(cb) {
-    //Get accepts as a param an object which defines a default value
-    chrome.storage.local.get({'historic': []}, function(result) {
-      return cb(null, result.historic);
-    });
-  }
-
-  /**
-   * Returns whether or not data has changed and thus should be saved
-   * @param  {Array} Historic data
-   * @param  {Object} Current data
-   */
-  function shouldSaveHistoric(historic, data) {
-    return  historic.length === 0 ||
-            historic[historic.length - 1].sell != data.rates.oficial.sell ||
-            historic[historic.length - 1].buy != data.rates.oficial.buy;
-  }
-
-  /**
-   * Saves, if the condition is met, the new data into the historic
-   * @param  {Object} Current data
-   */
-  function saveHistoric(data) {
-    getHistoric(function(err, historic) {
-      if(shouldSaveHistoric(historic, data)) {
-        historic.push({
-          date: moment(data.rates.date).format('DD/MM'),
-          sell: data.rates.oficial.sell,
-          buy: data.rates.oficial.buy
-        });
-        chrome.storage.local.set({'historic': historic}, function() {});
-      }
     });
   }
 

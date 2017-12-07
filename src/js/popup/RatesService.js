@@ -6,7 +6,7 @@
    *
    * @param {Chrome} chrome Chrome angularized service
    */
-  function RatesService(chrome) {
+  function RatesService(chrome, $http) {
 
     /**
      * Returns latest stored rates.
@@ -21,14 +21,32 @@
     }
 
     /**
-     * Returns the historic rates stored.
+     * Returns the API url with params
      *
-     * @param  {Function} cb Callback
-     * @return {undefined}
+     * @param  {String} type Currency type
+     * @param  {Integer} offset number of records to skip
+     * @return {String}
      */
-    function getHistoric(cb) {
-      chrome.storage.local.get('historic', function(result) {
-        cb(result.historic);
+    function getURL(type, offset) {
+      return 'http://dolar-api.codaxis.com:3033/api/' + type + '?limit=20&offset=' + offset;
+    }
+
+    /**
+     * Makes a request to the API
+     *
+     * @param  {String} type Currency type
+     * @param  {Integer} offset number of records to skip
+     * @return {Promise}
+     */
+    function getHistoric(type, offset) {
+      return $http({
+        method: 'GET',
+        url: getURL(type, offset),
+        transformResponse: [function (data) {
+          return JSON.parse(data);
+        }]
+      }).then(function(response) {
+        return response.data;
       });
     }
 
